@@ -1,0 +1,17 @@
+com\RestApi\DaoImpl\SubjectsDaoImpl.class
+com\RestApi\Service\SubjectsService.class
+com\RestApi\Dao\SubjectsDao.class
+com\RestApi\DaoImpl\ClassesDaoImpl.class
+com\RestApi\Service\SubjectsServiceImpl.class
+com\RestApi\Controller\Controllers.class
+com\RestApi\Config\RestApiConfiguration.class
+com\RestApi\DaoImpl\SubjectsDaoImpl$SubjectsMapper.class
+com\RestApi\Config\RestApiInitializer.class
+com\RestApi\DaoImpl\SubjectsDaoImpl$1.class
+com\RestApi\Dao\ClassesDao.class
+com\RestApi\DaoImpl\ClassesDaoImpl$1.class
+com\RestApi\DaoImpl\ClassesDaoImpl$ClassesMapper.class
+com\RestApi\Model\Classes.class
+com\RestApi\Service\ClassesServiceImpl.class
+com\RestApi\Service\ClassesService.class
+com\RestApi\Model\Subjects.class
