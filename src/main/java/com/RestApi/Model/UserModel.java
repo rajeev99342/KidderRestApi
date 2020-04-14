@@ -3,8 +3,8 @@ package com.RestApi.Model;
 import java.io.Serializable;
 
 public class UserModel implements Serializable {
-	private static final long serialVersionUID = 10001L;
-
+	private static final long serialVersionUID = 10002L;
+   private int user_id;
    private String  user_name;
    private String  user_username;
    private String  user_password;
@@ -16,7 +16,7 @@ public class UserModel implements Serializable {
    private Integer  user_type ;
    private String  user_refer_code;
    private String  user_refer_from;
-   private Integer   user_isCompetator;
+   private boolean   user_isCompetator;
    private String   user_unique_code;
 public String getUser_name() {
 	return user_name;
@@ -84,11 +84,11 @@ public String getUser_refer_from() {
 public void setUser_refer_from(String user_refer_from) {
 	this.user_refer_from = user_refer_from;
 }
-public Integer getUser_isCompetator() {
+public boolean getUser_isCompetator() {
 	return user_isCompetator;
 }
-public void setUser_isCompetator(Integer user_isCompetator) {
-	this.user_isCompetator = user_isCompetator;
+public void setUser_isCompetator(boolean b) {
+	this.user_isCompetator = b;
 }
 public String getUser_unique_code() {
 	return user_unique_code;
@@ -98,6 +98,12 @@ public void setUser_unique_code(String user_unique_code) {
 }
 public static long getSerialversionuid() {
 	return serialVersionUID;
+}
+public int getUser_id() {
+	return user_id;
+}
+public void setUser_id(int user_id) {
+	this.user_id = user_id;
 }
    
    

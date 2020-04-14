@@ -7,12 +7,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.RestApi.Dao.UserDao;
 import com.RestApi.DaoImpl.ClassesDaoImpl;
 import com.RestApi.DaoImpl.SubjectsDaoImpl;
+import com.RestApi.DaoImpl.UserDaoImpl;
 import com.RestApi.Model.UserModel;
 import com.google.gson.Gson;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -24,7 +27,8 @@ public class Controllers {
 	ClassesDaoImpl classesDaoImpl;
 	@Autowired
 	SubjectsDaoImpl subjectDaoImpl;
-	
+	@Autowired
+	UserDaoImpl userDaoImpl;
 	
 	
 	@RequestMapping(value = "/classAndSubjects", method = RequestMethod.GET)
@@ -37,15 +41,8 @@ public class Controllers {
 	
 	
 	@RequestMapping(value = "/saveUserData", method = RequestMethod.POST)
-	public @ResponseBody UserModel saveUserData(String input) {
-		
-		UserModel userModel = new UserModel();
-		
-		Gson gson = new Gson();
-		userModel = gson.fromJson(input, UserModel.class);
-		
-		
-		
+	public @ResponseBody UserModel saveUserData(@ModelAttribute UserModel userModel) {
+		userDaoImpl.saveUserDetail(userModel);
 		return null;
 	}
 	
