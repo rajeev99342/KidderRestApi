@@ -1,5 +1,7 @@
 package com.RestApi.Service;
 
-public class UserService {
+import com.RestApi.Model.UserModel;
 
+public interface UserService {
+	public void saveUserDetail(UserModel userModel);
 }

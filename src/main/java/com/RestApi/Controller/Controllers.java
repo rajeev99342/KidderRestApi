@@ -27,9 +27,9 @@ public class Controllers {
 	ClassesDaoImpl classesDaoImpl;
 	@Autowired
 	SubjectsDaoImpl subjectDaoImpl;
-	@Autowired
-	UserDaoImpl userDaoImpl;
-	
+//	@Autowired
+//	UserDaoImpl userDaoImpl;
+//	
 	
 	@RequestMapping(value = "/classAndSubjects", method = RequestMethod.GET)
 	public @ResponseBody HashMap<String,List<Object>> getClassAndSubjects() {
@@ -42,6 +42,7 @@ public class Controllers {
 	
 	@RequestMapping(value = "/saveUserData", method = RequestMethod.POST)
 	public @ResponseBody UserModel saveUserData(@ModelAttribute UserModel userModel) {
+		UserDaoImpl userDaoImpl = new UserDaoImpl();
 		userDaoImpl.saveUserDetail(userModel);
 		return null;
 	}
