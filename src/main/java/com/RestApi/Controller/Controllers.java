@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.RestApi.DaoImpl.ClassesDaoImpl;
+import com.RestApi.DaoImpl.GroupDaoImpl;
 import com.RestApi.DaoImpl.SubjectsDaoImpl;
 import com.RestApi.DaoImpl.UserDaoImpl;
+import com.RestApi.Model.GroupModel;
 import com.RestApi.Model.UserModel;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 
@@ -42,6 +44,13 @@ public class Controllers {
 	public @ResponseBody UserModel saveUserData(@RequestBody UserModel userModel) {
 		userDaoImpl.saveUserDetail(userModel);
 		return userModel;
+	}
+	
+	@Autowired
+	GroupDaoImpl groupDaoImpl;
+	@RequestMapping(value = "/saveGroupData", method = RequestMethod.POST)
+	public @ResponseBody void saveGroupData(@RequestBody GroupModel groupModel) {
+		groupDaoImpl.saveUserDetail(groupModel);
 	}
 	
 }
