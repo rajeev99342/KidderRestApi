@@ -48,9 +48,11 @@ public class Controllers {
 	
 	@Autowired
 	GroupDaoImpl groupDaoImpl;
+	
 	@RequestMapping(value = "/saveGroupData", method = RequestMethod.POST)
-	public @ResponseBody void saveGroupData(@RequestBody GroupModel groupModel) {
-		groupDaoImpl.saveUserDetail(groupModel);
+	public @ResponseBody GroupModel saveGroupData(@RequestBody GroupModel groupModel) {
+		groupDaoImpl.saveGroupDetail(groupModel);
+		return groupModel;
 	}
 	
 }
