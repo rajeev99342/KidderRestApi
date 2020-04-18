@@ -2,6 +2,8 @@ package com.RestApi.DaoImpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -49,12 +51,28 @@ public class UserDaoImpl implements UserDao{
 		}
 		
 	}
-	public void saveUserDetail(UserModel userModel) {
+	public String saveUserDetail(UserModel userModel){
 		String sql = "insert into user_info_tbl(user_name, user_username, user_password, user_email, user_phone_number, user_unique_code) values(:user_name, :user_username, :user_password, :user_email, :user_phone_number, :user_unique_code)";
+		if(getUserDetailsByUserName(userModel.getUser_username()).size() == 0) {
 		if(userModel.getUser_unique_code() == null) {
 			userModel.setUser_unique_code(CommonResource.randomString((20 - userModel.getUser_username().length())) + userModel.getUser_username().toUpperCase());
 		}
-		namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(userModel));
+			namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(userModel));
+		} else {
+			return "UserName alredy exist";
+		}
+		return "User regiter sucessfilly";
 		
+	}
+	public List<UserModel> getAllUserDetails() {
+		String sql = "select * from user_info_tbl";
+		return namedParameterJdbcTemplate.query(sql, getSqlParameterByModel(null), new UserModelMapper());
+	}
+	public List<UserModel> getUserDetailsByUserName(String userName) {
+		String sql = "select * from user_info_tbl where user_username=:user_username";
+		SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("user_username",userName);
+		List<UserModel> userList = namedParameterJdbcTemplate.query(sql, namedParameters, new UserModelMapper());
+		System.out.println("----------------------------"+userList+userName);
+		return userList;
 	}
 }

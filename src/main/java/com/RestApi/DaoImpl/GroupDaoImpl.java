@@ -2,6 +2,7 @@ package com.RestApi.DaoImpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.RestApi.Common.CommonResource;
 import com.RestApi.Dao.GroupDao;
 import com.RestApi.Model.GroupModel;
+import com.RestApi.Model.UserModel;
 @Repository
 public class GroupDaoImpl implements GroupDao{
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -45,12 +47,22 @@ public class GroupDaoImpl implements GroupDao{
 		}
 		
 	}
-	public void saveGroupDetail(GroupModel groupModel) {
+	public String saveGroupDetail(GroupModel groupModel){
 		String sql = "insert into group_info_tbl(grp_name, grp_desc, grp_admin, grp_unique_code) values(:grp_name, :grp_desc, :grp_admin, :grp_unique_code)";
+		if(getGroupDetailsByGroupName(groupModel.getGrp_name()).size() ==0) {
 		if(groupModel.getGrp_unique_code() == null) {
 			groupModel.setGrp_unique_code(CommonResource.randomString((20 - groupModel.getGrp_name().length())) + groupModel.getGrp_name().toUpperCase());
 		}
 		namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(groupModel));
+		} else {
+			return "Group Name Alredy Exist";
+		}
+		return "Group created Succesfully";
 		
+	}
+	public List<GroupModel> getGroupDetailsByGroupName(String grpName) {
+		String sql = "select * from group_info_tbl where grp_name=:grp_name";
+		SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("grp_name",grpName);
+		return namedParameterJdbcTemplate.query(sql, namedParameters, new GroupModelMapper());
 	}
 }

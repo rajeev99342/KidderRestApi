@@ -1,5 +1,6 @@
 package com.RestApi.Controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,11 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.RestApi.Common.CommonResource;
 import com.RestApi.DaoImpl.ClassesDaoImpl;
 import com.RestApi.DaoImpl.GroupDaoImpl;
+import com.RestApi.DaoImpl.QuizDaoImpl;
 import com.RestApi.DaoImpl.SubjectsDaoImpl;
 import com.RestApi.DaoImpl.UserDaoImpl;
 import com.RestApi.Model.GroupModel;
+import com.RestApi.Model.UserQuestionModel;
+import com.RestApi.Model.QuizModel;
 import com.RestApi.Model.UserModel;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 
@@ -41,18 +47,25 @@ public class Controllers {
 	
 	
 	@RequestMapping(value = "/saveUserData", method = RequestMethod.POST)
-	public @ResponseBody UserModel saveUserData(@RequestBody UserModel userModel) {
-		userDaoImpl.saveUserDetail(userModel);
-		return userModel;
+	public @ResponseBody String saveUserData(@RequestBody UserModel userModel) throws SQLException {
+		
+		return userDaoImpl.saveUserDetail(userModel);
 	}
 	
 	@Autowired
 	GroupDaoImpl groupDaoImpl;
 	
 	@RequestMapping(value = "/saveGroupData", method = RequestMethod.POST)
-	public @ResponseBody GroupModel saveGroupData(@RequestBody GroupModel groupModel) {
-		groupDaoImpl.saveGroupDetail(groupModel);
-		return groupModel;
+	public @ResponseBody String saveGroupData(@RequestBody GroupModel groupModel) {
+		return groupDaoImpl.saveGroupDetail(groupModel);
+	}
+	@Autowired
+	QuizDaoImpl quizDaoImpl;
+	@RequestMapping(value = "/saveQuiz", method = RequestMethod.POST)
+	public @ResponseBody List<UserQuestionModel> saveQuizData(@RequestBody QuizModel quizModel) {
+		quizDaoImpl.saveQuizDetail(quizModel);
+		
+		return quizModel.getUser_questlist();
 	}
 	
 }
